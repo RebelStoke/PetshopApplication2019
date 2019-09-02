@@ -9,13 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{8AAE8079-6415-46B3-92F6-E9D802502707}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetshopApp2019.Core", "PetshopApp2019.Core\PetshopApp2019.Core.csproj", "{7ED6AF0F-7D45-4D21-A88E-FD0056154B4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetshopApp2019.Core", "PetshopApp2019.Core\PetshopApp2019.Core.csproj", "{7ED6AF0F-7D45-4D21-A88E-FD0056154B4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetshopApp2019.Core.Entity", "PetshopApp2019.Core.Entity\PetshopApp2019.Core.Entity.csproj", "{1FEE56F8-A9AB-4F37-879F-5A15FD1C1A6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetshopApp2019.Core.Entity", "PetshopApp2019.Core.Entity\PetshopApp2019.Core.Entity.csproj", "{1FEE56F8-A9AB-4F37-879F-5A15FD1C1A6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetshopApp2019.Infrastructure.Data", "PetshopApp2019.Infrastructure.Data\PetshopApp2019.Infrastructure.Data.csproj", "{C6EB5187-B292-4673-B7B1-B2FA5B8E1232}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetshopApp2019.Infrastructure.Data", "PetshopApp2019.Infrastructure.Data\PetshopApp2019.Infrastructure.Data.csproj", "{C6EB5187-B292-4673-B7B1-B2FA5B8E1232}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetshopApp2019.UI.Application", "PetshopApp2019.UI.Application\PetshopApp2019.UI.Application.csproj", "{26FE65A4-2DA3-4FC0-B61B-A200CFE6AF6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetshopApp2019.UI.Application", "PetshopApp2019.UI.Application\PetshopApp2019.UI.Application.csproj", "{26FE65A4-2DA3-4FC0-B61B-A200CFE6AF6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
