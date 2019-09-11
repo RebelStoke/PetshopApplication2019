@@ -7,21 +7,37 @@ namespace PetshopApp2019.Infrastructure.Data
 {
     static class FakeDB
     {
-        static public int id = 1;
+        static public Boolean dataInit = false;
+        static public int petID = 1;
+        static public int ownerID = 1;
         static public List<Pet> listOfPets = new List<Pet>();
+        static public List<Owner> listOfOwner = new List<Owner>();
         static public void InitData() {
-            var bearPet1 = new Pet { ID = id++, Name = "Bear1", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "Brown", PreviousOwner = "Nedas", Price = 69, Type = "Bear"};
-            var bearPet2 = new Pet { ID = id++, Name = "Bear2", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "Black", PreviousOwner = "Szymon", Price = 98, Type = "Bear" };
-            var bearPet3 = new Pet { ID = id++, Name = "Bear3", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "White", PreviousOwner = "Mate", Price = 102, Type = "Bear" };
-            var bearPet4 = new Pet { ID = id++, Name = "Bear4", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "Brown", PreviousOwner = "Greg", Price = 39, Type = "Bear" };
-            var bearPet5 = new Pet { ID = id++, Name = "Bear5", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "Black", PreviousOwner = "Me", Price = 106, Type = "Bear" };
-            var bearPet6 = new Pet { ID = id++, Name = "Bear6", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "White", PreviousOwner = "Nedas", Price = 78, Type = "Bear" };
+            if (dataInit) {
+                return;
+            }
+            var owner1 = new Owner { ID = ownerID++, FirstName = "Dude", LastName = "Son", Address = "Dirty Street", Email = "dude.son@xD.com", PhoneNumber = "66 66 66 66" };
+            var owner2 = new Owner { ID = ownerID++, FirstName = "Big", LastName = "Lebowski", Address = "Dirty Street", Email = "dude.son@xD.com", PhoneNumber = "66 66 66 66" };
+            var owner3 = new Owner { ID = ownerID++, FirstName = "John", LastName = "Rambo", Address = "Dirty Street", Email = "dude.son@xD.com", PhoneNumber = "66 66 66 66" };
+            var owner4 = new Owner { ID = ownerID++, FirstName = "Vincent", LastName = "Vega", Address = "Dirty Street", Email = "dude.son@xD.com", PhoneNumber = "66 66 66 66" };
+            listOfOwner.Add(owner1);
+            listOfOwner.Add(owner2);
+            listOfOwner.Add(owner3);
+            listOfOwner.Add(owner4);
+            var bearPet1 = new Pet { ID = petID++, Name = "Bear1", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "Brown", PreviousOwner = owner1, Price = 69, Type = "Bear"};
+            var bearPet2 = new Pet { ID = petID++, Name = "Bear2", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "Black", PreviousOwner = owner2, Price = 98, Type = "Bear" };
+            var bearPet3 = new Pet { ID = petID++, Name = "Bear3", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "White", PreviousOwner = owner3, Price = 102, Type = "Bear" };
+            var bearPet4 = new Pet { ID = petID++, Name = "Bear4", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "Brown", PreviousOwner = owner4, Price = 39, Type = "Bear" };
+            var bearPet5 = new Pet { ID = petID++, Name = "Bear5", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "Black", PreviousOwner = owner1, Price = 106, Type = "Bear" };
+            var bearPet6 = new Pet { ID = petID++, Name = "Bear6", BirthDate = DateTime.Now, SoldDate = DateTime.Now, Color = "White", PreviousOwner = owner2, Price = 78, Type = "Bear" };
             listOfPets.Add(bearPet1);
             listOfPets.Add(bearPet2);
             listOfPets.Add(bearPet3);
             listOfPets.Add(bearPet4);
             listOfPets.Add(bearPet5);
             listOfPets.Add(bearPet6);
+
+            dataInit = true;
         }
     }
 }

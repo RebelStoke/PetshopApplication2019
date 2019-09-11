@@ -14,7 +14,7 @@ namespace PetshopApp2019.Infrastructure.Data.Repositories
 
         public Pet Create(Pet pet)
         {
-           pet.ID = FakeDB.id++;
+           pet.ID = FakeDB.petID++;
            FakeDB.listOfPets.Add(pet);
            return pet;
         }

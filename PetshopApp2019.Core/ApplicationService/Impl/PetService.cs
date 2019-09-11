@@ -48,7 +48,7 @@ namespace PetshopApp2019.Core.ApplicationService.Impl
             return listByType.ToList();
         }
 
-        public Pet NewPet(string type, string name, DateTime birthDate, DateTime soldDate, string color, string previousOwner, double price)
+        public Pet NewPet(string type, string name, DateTime birthDate, DateTime soldDate, string color, Owner previousOwner, double price)
         {
             var newPet = new Pet()
             {
@@ -72,7 +72,7 @@ namespace PetshopApp2019.Core.ApplicationService.Impl
 
         public Pet UpdatePet(int id, Pet pet)
         {
-             return UpdatePet(id, pet);
+            return _petRepository.Update(id, pet);
         }
     }
 }
