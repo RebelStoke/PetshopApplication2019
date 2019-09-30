@@ -34,7 +34,7 @@ namespace PetshopApp2019.Core.ApplicationService.Impl
 
         public Owner NewOwner(string firstName, string lastName, string address, string email, string phoneNumber, int id)
         {
-            return new Owner { FirstName = firstName, LastName = lastName, Address = address, Email = email, PhoneNumber = phoneNumber, ID = id };
+            return new Owner { FirstName = firstName, LastName = lastName, Address = address, Email = email, PhoneNumber = phoneNumber, Id = id };
         }
 
         public Owner UpdateOwner(int id, Owner owner)

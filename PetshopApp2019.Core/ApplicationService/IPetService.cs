@@ -7,7 +7,7 @@ namespace PetshopApp2019.Core.ApplicationService
 {
     public interface IPetService
     {
-        List<Pet> GetPets();
+        FilteredList<Pet> GetPets(Filter filter);
         List<Pet> GetPetsByType(string type);
         Pet NewPet(string type, string name, DateTime birthDate, DateTime soldDate, string color, Owner previousOwner, double price);
         Pet CreatePet(Pet pet);

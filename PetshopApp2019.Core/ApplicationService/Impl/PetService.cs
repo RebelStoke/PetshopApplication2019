@@ -38,13 +38,13 @@ namespace PetshopApp2019.Core.ApplicationService.Impl
             return cheapestPets;
         }
 
-        public List<Pet> GetPets()
+        public FilteredList<Pet> GetPets(Filter filter)
         {
-           return _petRepository.ReadPets().ToList();
+           return _petRepository.ReadPets(filter);
         }
         public List<Pet> GetPetsByType(string type) {
-            var list = _petRepository.ReadPets();
-            var listByType = list.Where(pet => pet.Type.Equals(type));
+            var list = _petRepository.ReadPets(null);
+            var listByType = list.List.Where(pet => pet.Type.Equals(type));
             return listByType.ToList();
         }
 
@@ -65,8 +65,8 @@ namespace PetshopApp2019.Core.ApplicationService.Impl
 
         public List<Pet> sortPetsByPrice()
         {
-            var pets = GetPets();
-            var sortedPets = pets.OrderBy(pet => pet.Price);
+            var pets = GetPets(null);
+            var sortedPets = pets.List.OrderBy(pet => pet.Price);
             return sortedPets.ToList();
         }
 

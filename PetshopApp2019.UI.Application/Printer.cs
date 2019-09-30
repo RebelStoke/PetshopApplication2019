@@ -112,7 +112,7 @@ namespace PetshopApp2019.UI.Application
             Console.WriteLine("Color: ");
             var color = Console.ReadLine();
             Console.WriteLine("PreviousOwner: ");
-            var previousOwner = Console.ReadLine();
+            var previousOwner = new Owner() { FirstName = Console.ReadLine()};
             Console.WriteLine("Price: ");
             var price = Convert.ToDouble(Console.ReadLine());
             var pet = _petService.NewPet(type, name, birthDate, soldDate, color, previousOwner, price);
