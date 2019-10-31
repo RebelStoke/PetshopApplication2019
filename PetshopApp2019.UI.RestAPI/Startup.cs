@@ -43,8 +43,8 @@
                    
                
             }
-            
 
+            //services.AddCors();
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
@@ -55,10 +55,24 @@
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder
+                        //.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+                        .WithOrigins("http://localhost:63342").AllowAnyHeader().AllowAnyMethod()
+                        .WithOrigins("https://aiof-7084d.firebaseapp.com").AllowAnyHeader().AllowAnyMethod()
+                        .WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()
+                    );
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("AllowSpecificOrigin");
+
+
             if (env.IsDevelopment())
             {
                 using (var scope = app.ApplicationServices.CreateScope())
@@ -77,9 +91,6 @@
                 {
                         
                     var context = scope.ServiceProvider.GetRequiredService<PetshopContext>();
-                    var pets = context.Pets
-                        .Include(pet => pet.PreviousOwner)
-                        .ToString();
                     //context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
                     //DbInitializer.Seed(context);
@@ -90,6 +101,7 @@
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            //app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
         }
 
         public int crashThisAppWithNoSurvivors()

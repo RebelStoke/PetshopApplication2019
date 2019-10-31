@@ -7,7 +7,7 @@ namespace PetshopApp2019.Core.DomainService
 {
     public interface IOwnerRepository
     {
-        IEnumerable<Owner> ReadOwners();
+        FilteredList<Owner> ReadOwners(Filter filter);
         Owner Create(Owner owner);
         Owner Delete(int id);
         Owner Update(int id, Owner owner);

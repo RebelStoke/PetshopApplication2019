@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using PetshopApp2019.Core.ApplicationService;
 using PetshopApp2019.Core.Entity;
+using PetshopApp2019.UI.RestAPI.DTO;
 
 namespace PetshopApp2019.UI.RestAPI.Controllers
 {
@@ -20,9 +21,48 @@ namespace PetshopApp2019.UI.RestAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Owner>> Get()
+        public ActionResult<FilteredList<Owner>> Get([FromQuery] Filter filter)
         {
-            return _ownerService.GetOwner();
+            if(filter.CurrentPage == 0 || filter.ItemsPrPage == 0){
+                filter = null;
+            }
+            var filteredList = _ownerService.GetOwner(filter);
+            if (filter == null)
+            {
+                var newList = new List<OwnerDTO>();
+                foreach (var owner in filteredList.List)
+                {
+                    newList.Add(new OwnerDTO()
+                    {
+                        Id = owner.Id,
+                        FirstName = owner.FirstName,
+                        LastName = owner.LastName,
+                        PhoneNumber = owner.PhoneNumber
+                    });
+
+                }
+                return Ok(newList);
+            }
+            else {
+                var newList2 = new List<object>();
+                foreach (var owner in filteredList.List) {
+                    newList2.Add(
+                        new {
+                            Id = owner.Id,
+                            FirstName = owner.FirstName,
+                            LastName = owner.LastName,
+                            PhoneNumber = owner.PhoneNumber,
+                            Email = owner.Email,
+                            Address = owner.Address,
+                            Pets = owner.Pets
+                        });
+                }
+                return Ok(newList2);
+            }
+                
+            
+
+            
         }
         [HttpGet("{id}")]
         public Owner Get(int id)

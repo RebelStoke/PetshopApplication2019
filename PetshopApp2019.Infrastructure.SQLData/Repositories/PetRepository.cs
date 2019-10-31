@@ -29,7 +29,7 @@ namespace PetshopApp2019.Infrastructure.Data.Repositories
 
         public Pet ReadByID(int id)
         {
-            return context.Pets.Find(id);
+            return context.Pets.Include("PreviousOwner").FirstOrDefault(p => p.Id == id);
         }
 
         public FilteredList<Pet> ReadPets(Filter filter)

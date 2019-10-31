@@ -23,9 +23,9 @@ namespace PetshopApp2019.Core.ApplicationService.Impl
             return _ownerRepository.Delete(id);
         }
 
-        public List<Owner> GetOwner()
+        public FilteredList<Owner> GetOwner(Filter filter)
         {
-            return _ownerRepository.ReadOwners().ToList();
+            return _ownerRepository.ReadOwners(filter);
         }
 
         public Owner getOwnerByID(int id) {

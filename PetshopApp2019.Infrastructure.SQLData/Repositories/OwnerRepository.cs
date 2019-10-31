@@ -4,6 +4,8 @@ using PetshopApp2019.Infrastructure.SQLData;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace PetshopApp2019.Infrastructure.Data.Repositories
 {
@@ -33,9 +35,22 @@ namespace PetshopApp2019.Infrastructure.Data.Repositories
             return owner;
         }
 
-        public IEnumerable<Owner> ReadOwners()
+        public FilteredList<Owner> ReadOwners(Filter filter)
         {
-            return context.Owners;
+            var filteredList = new FilteredList<Owner>();
+            if (filter != null)
+            {
+
+                filteredList.List = context.Owners
+                .Skip((filter.CurrentPage - 1) * filter.ItemsPrPage)
+                .Take(filter.ItemsPrPage);
+            }
+            else
+                filteredList.List = context.Owners;
+            filteredList.Count = filteredList.List.Count();
+            return filteredList;
+
+            
         }
 
         public Owner Update(int id, Owner owner)
