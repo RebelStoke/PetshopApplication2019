@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PetshopApp2019.Core.Entity;
-using System;
 
 namespace PetshopApp2019.Infrastructure.SQLData
 {
@@ -16,8 +15,10 @@ namespace PetshopApp2019.Infrastructure.SQLData
             modelBuilder.Entity<Pet>()
                 .HasOne(e => e.PreviousOwner)
                 .WithMany(c => c.Pets);
-                
-           
+            modelBuilder.Entity<Owner>()
+               .Ignore(e => e.Pets);
+
+
         }
 
     }

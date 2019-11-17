@@ -20,7 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\PetshopApp2019.Core.Entity\PetshopApp2019.Core.Entity.csproj" />
     <ProjectReference Include="..\PetshopApp2019.Core\PetshopApp2019.Core.csproj" />
-    <ProjectReference Include="..\PetshopApp2019.Infrastructure.Data\PetshopApp2019.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\PetshopApp2019.Infrastructure.SQLData\PetshopApp2019.Infrastructure.SQLData.csproj" />
   </ItemGroup>
 

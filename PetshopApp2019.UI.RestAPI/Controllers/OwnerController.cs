@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Mvc;
 using PetshopApp2019.Core.ApplicationService;
 using PetshopApp2019.Core.Entity;
-using PetshopApp2019.UI.RestAPI.DTO;
+using System.Collections.Generic;
 
 namespace PetshopApp2019.UI.RestAPI.Controllers
 {
@@ -14,7 +9,7 @@ namespace PetshopApp2019.UI.RestAPI.Controllers
     [ApiController]
     public class OwnerController : ControllerBase
     {
-        IOwnerService _ownerService;
+        private readonly IOwnerService _ownerService;
         public OwnerController(IOwnerService ownerService)
         {
             _ownerService = ownerService;
@@ -23,31 +18,23 @@ namespace PetshopApp2019.UI.RestAPI.Controllers
         [HttpGet]
         public ActionResult<FilteredList<Owner>> Get([FromQuery] Filter filter)
         {
-            if(filter.CurrentPage == 0 || filter.ItemsPrPage == 0){
+            if (filter.CurrentPage == 0 || filter.ItemsPrPage == 0)
+            {
                 filter = null;
             }
-            var filteredList = _ownerService.GetOwner(filter);
+            FilteredList<Owner> filteredList = _ownerService.GetOwner(filter);
             if (filter == null)
             {
-                var newList = new List<OwnerDTO>();
-                foreach (var owner in filteredList.List)
-                {
-                    newList.Add(new OwnerDTO()
-                    {
-                        Id = owner.Id,
-                        FirstName = owner.FirstName,
-                        LastName = owner.LastName,
-                        PhoneNumber = owner.PhoneNumber
-                    });
-
-                }
-                return Ok(newList);
+                return Ok(filteredList.List);
             }
-            else {
-                var newList2 = new List<object>();
-                foreach (var owner in filteredList.List) {
+            else
+            {
+                List<object> newList2 = new List<object>();
+                foreach (Owner owner in filteredList.List)
+                {
                     newList2.Add(
-                        new {
+                        new
+                        {
                             Id = owner.Id,
                             FirstName = owner.FirstName,
                             LastName = owner.LastName,
@@ -59,10 +46,10 @@ namespace PetshopApp2019.UI.RestAPI.Controllers
                 }
                 return Ok(newList2);
             }
-                
-            
 
-            
+
+
+
         }
         [HttpGet("{id}")]
         public Owner Get(int id)

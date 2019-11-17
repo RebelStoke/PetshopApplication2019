@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using PetshopApp2019.Core.Entity;
+﻿using PetshopApp2019.Core.Entity;
 
 namespace PetshopApp2019.Core.DomainService
 {

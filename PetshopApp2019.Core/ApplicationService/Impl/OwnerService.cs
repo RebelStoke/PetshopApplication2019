@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PetshopApp2019.Core.DomainService;
+﻿using PetshopApp2019.Core.DomainService;
 using PetshopApp2019.Core.Entity;
 
 namespace PetshopApp2019.Core.ApplicationService.Impl
 {
     public class OwnerService : IOwnerService
     {
-        IOwnerRepository _ownerRepository;
-        public OwnerService(IOwnerRepository ownerRepository) {
+        private readonly IOwnerRepository _ownerRepository;
+        public OwnerService(IOwnerRepository ownerRepository)
+        {
             _ownerRepository = ownerRepository;
         }
         public Owner CreateOwner(Owner owner)
         {
-           return _ownerRepository.Create(owner);
+            return _ownerRepository.Create(owner);
         }
 
         public Owner DeleteOwner(int id)
@@ -28,7 +25,8 @@ namespace PetshopApp2019.Core.ApplicationService.Impl
             return _ownerRepository.ReadOwners(filter);
         }
 
-        public Owner getOwnerByID(int id) {
+        public Owner getOwnerByID(int id)
+        {
             return _ownerRepository.ReadByID(id);
         }
 
@@ -39,7 +37,7 @@ namespace PetshopApp2019.Core.ApplicationService.Impl
 
         public Owner UpdateOwner(int id, Owner owner)
         {
-           return _ownerRepository.Update(id, owner);
+            return _ownerRepository.Update(id, owner);
         }
     }
 }

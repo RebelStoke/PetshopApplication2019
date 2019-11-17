@@ -33,18 +33,17 @@
                     (opt => opt.UseSqlite("Data Source=PetShopSQLLite.db")
                 );
             }
-            else {
+            else
+            {
 
                 services.AddDbContext<PetshopContext>(
                     opt =>
                     {
                         opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection"));
-                    }); 
-                   
-               
-            }
+                    });
 
-            //services.AddCors();
+
+            }
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
@@ -60,7 +59,6 @@
             {
                 options.AddPolicy("AllowSpecificOrigin",
                     builder => builder
-                        //.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
                         .WithOrigins("http://localhost:63342").AllowAnyHeader().AllowAnyMethod()
                         .WithOrigins("https://aiof-7084d.firebaseapp.com").AllowAnyHeader().AllowAnyMethod()
                         .WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()
@@ -75,9 +73,9 @@
 
             if (env.IsDevelopment())
             {
-                using (var scope = app.ApplicationServices.CreateScope())
+                using (IServiceScope scope = app.ApplicationServices.CreateScope())
                 {
-                    var context = scope.ServiceProvider.GetRequiredService<PetshopContext>();
+                    PetshopContext context = scope.ServiceProvider.GetRequiredService<PetshopContext>();
                     context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
                     DbInitializer.Seed(context);
@@ -87,13 +85,11 @@
             }
             else
             {
-                using (var scope = app.ApplicationServices.CreateScope())
+                using (IServiceScope scope = app.ApplicationServices.CreateScope())
                 {
-                        
-                    var context = scope.ServiceProvider.GetRequiredService<PetshopContext>();
-                    //context.Database.EnsureDeleted();
+
+                    PetshopContext context = scope.ServiceProvider.GetRequiredService<PetshopContext>();
                     context.Database.EnsureCreated();
-                    //DbInitializer.Seed(context);
 
                 }
                 app.UseHsts();
@@ -101,7 +97,7 @@
 
             app.UseHttpsRedirection();
             app.UseMvc();
-            //app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
         }
 
         public int crashThisAppWithNoSurvivors()

@@ -1,21 +1,24 @@
-﻿using System;
+﻿using PetshopApp2019.Core.DomainService;
+using PetshopApp2019.Core.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using PetshopApp2019.Core.DomainService;
-using PetshopApp2019.Core.Entity;
 
 namespace PetshopApp2019.Core.ApplicationService.Impl
 {
     public class PetService : IPetService
     {
-        IPetRepository _petRepository;
-        public PetService(IPetRepository petRepository) {
+        private readonly IPetRepository _petRepository;
+        private readonly IOwnerService _ownerService;
+        public PetService(IPetRepository petRepository, IOwnerService ownerService)
+        {
             _petRepository = petRepository;
+            _ownerService = ownerService;
         }
 
         public Pet CreatePet(Pet pet)
         {
+            pet.PreviousOwner = _ownerService.getOwnerByID(pet.PreviousOwner.Id);
             return _petRepository.Create(pet);
         }
 
@@ -24,15 +27,17 @@ namespace PetshopApp2019.Core.ApplicationService.Impl
             return _petRepository.Delete(id);
         }
 
-        public Pet getPetByID(int id) {
-           return _petRepository.ReadByID(id);
+        public Pet getPetByID(int id)
+        {
+            return _petRepository.ReadByID(id);
         }
 
         public List<Pet> get5CheapestPets()
         {
-            List<Pet> cheapestPets = new List<Pet>(); 
+            List<Pet> cheapestPets = new List<Pet>();
             List<Pet> petsByPrice = sortPetsByPrice();
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 5; i++)
+            {
                 cheapestPets.Add(petsByPrice[i]);
             }
             return cheapestPets;
@@ -40,17 +45,18 @@ namespace PetshopApp2019.Core.ApplicationService.Impl
 
         public FilteredList<Pet> GetPets(Filter filter)
         {
-           return _petRepository.ReadPets(filter);
+            return _petRepository.ReadPets(filter);
         }
-        public List<Pet> GetPetsByType(string type) {
-            var list = _petRepository.ReadPets(null);
-            var listByType = list.List.Where(pet => pet.Type.Equals(type));
+        public List<Pet> GetPetsByType(string type)
+        {
+            FilteredList<Pet> list = _petRepository.ReadPets(null);
+            IEnumerable<Pet> listByType = list.List.Where(pet => pet.Type.Equals(type));
             return listByType.ToList();
         }
 
         public Pet NewPet(string type, string name, DateTime birthDate, DateTime soldDate, string color, Owner previousOwner, double price)
         {
-            var newPet = new Pet()
+            Pet newPet = new Pet()
             {
                 Type = type,
                 Name = name,
@@ -65,8 +71,8 @@ namespace PetshopApp2019.Core.ApplicationService.Impl
 
         public List<Pet> sortPetsByPrice()
         {
-            var pets = GetPets(null);
-            var sortedPets = pets.List.OrderBy(pet => pet.Price);
+            FilteredList<Pet> pets = GetPets(null);
+            IOrderedEnumerable<Pet> sortedPets = pets.List.OrderBy(pet => pet.Price);
             return sortedPets.ToList();
         }
 
